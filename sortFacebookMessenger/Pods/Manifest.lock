@@ -1,0 +1,13 @@
+PODS:
+  - hpple (0.2.0)
+  - Ono (1.2.2)
+
+DEPENDENCIES:
+  - hpple (~> 0.2.0)
+  - Ono
+
+SPEC CHECKSUMS:
+  hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
+  Ono: 80b1c686777d3f6d5d5ce6fcac8a74afef4ca197
+
+COCOAPODS: 0.37.2
