@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		34C96C85ECF51CE98AD58619 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29DD72239DFDCC56DD30B6F0 /* libPods.a */; };
+		CE09B1CB1B273780001928FF /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = CE09B1CA1B273780001928FF /* Message.m */; };
+		CE09B1CE1B273787001928FF /* Thread.m in Sources */ = {isa = PBXBuildFile; fileRef = CE09B1CD1B273787001928FF /* Thread.m */; };
 		CE429DC51B1E0D3400B2E267 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE429DC41B1E0D3400B2E267 /* main.m */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +29,10 @@
 		1ED292C03CC16A9A2F5F14B2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		29DD72239DFDCC56DD30B6F0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD99A475CDC00265F8595C0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		CE09B1C91B273780001928FF /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		CE09B1CA1B273780001928FF /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		CE09B1CC1B273787001928FF /* Thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thread.h; sourceTree = "<group>"; };
+		CE09B1CD1B273787001928FF /* Thread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Thread.m; sourceTree = "<group>"; };
 		CE429DC11B1E0D3400B2E267 /* sortFacebookMessenger */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sortFacebookMessenger; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE429DC41B1E0D3400B2E267 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,6 +66,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CE09B1C81B27376D001928FF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CE09B1C91B273780001928FF /* Message.h */,
+				CE09B1CA1B273780001928FF /* Message.m */,
+				CE09B1CC1B273787001928FF /* Thread.h */,
+				CE09B1CD1B273787001928FF /* Thread.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		CE429DB81B1E0D3400B2E267 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +98,7 @@
 		CE429DC31B1E0D3400B2E267 /* sortFacebookMessenger */ = {
 			isa = PBXGroup;
 			children = (
+				CE09B1C81B27376D001928FF /* Model */,
 				CE429DC41B1E0D3400B2E267 /* main.m */,
 			);
 			path = sortFacebookMessenger;
@@ -178,6 +196,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE429DC51B1E0D3400B2E267 /* main.m in Sources */,
+				CE09B1CB1B273780001928FF /* Message.m in Sources */,
+				CE09B1CE1B273787001928FF /* Thread.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
