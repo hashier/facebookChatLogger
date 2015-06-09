@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Ono.h"
-
 #import "TFHpple.h"
 
 @implementation NSString (Extensions)
@@ -20,100 +18,32 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        NSError *error;
         NSString *xPath = @"//div[@class='thread']";
         NSData *file;
-        __block int i;
-        i = 0;
-        __block NSString *a = @"", *b = @"";
-        ONOXMLDocument *document;
         
         file = [NSData dataWithContentsOfFile:@"/Users/chl/Downloads/facebook-christopherloessl/html/messages.htm"];
 //        file = [NSData dataWithContentsOfFile:@"/Users/chl/Desktop/test.html"];
 //        file = [NSData dataWithContentsOfFile:@"/Users/chl/Desktop/test2.html"];
         file = [NSData dataWithContentsOfFile:@"/Users/chl/Desktop/test3.html"];
         
-        
-        document = [ONOXMLDocument XMLDocumentWithData:file error:&error];
-        
 
-        for (ONOXMLElement *element in document.rootElement.children) {
-            i++;
-            NSLog(@"1: %@: %@", element.tag, element.attributes);
-        }
-//        NSLog(@"End: %d", i);
-        
-        ONOXMLElement *tmp = [document.rootElement firstChildWithTag:@"thread"];
-        i = 0;
-        for (ONOXMLElement *element in tmp.children) {
-            i++;
-//            NSLog(@"%@: %@", element.tag, element.attributes);
-        }
-//        NSLog(@"End: %d", i);
-        
-        __block NSMutableString *tmpString = [NSMutableString new];
-        NSLog(@"hashier: time 0");
-//        NSLog(@"XPath Search: %@", XPath);
-        [document enumerateElementsWithXPath:xPath usingBlock:^(ONOXMLElement *element, NSUInteger idx, BOOL *stop) {
-//            NSLog(@"%@", [element stringValue]);
-            [tmpString appendString:[element stringValue]];
-            //*stop = idx < 3;
-            i++;
-        }];
-        NSLog(@"entries: = %d and length = %lu", i, tmpString.length);
-        
-        [document enumerateElementsWithXPath:xPath usingBlock:^(ONOXMLElement *element, NSUInteger idx, BOOL *stop) {
-            NSLog(@"\n%@", [element stringValue]);
-            a = [a stringByAppendingString:[element stringValue]];
-        }];
-        
-        NSLog(@"hashier: time 1");
         TFHpple *tutorialsParser = [TFHpple hppleWithHTMLData:file];
-        NSLog(@"hashier: time 2");
+
         NSArray *tutorialsNodes = [tutorialsParser searchWithXPathQuery:xPath];
-        NSLog(@"hashier: time 3");
         
-        for (TFHppleElement *element in tutorialsNodes) {
-//            NSLog(@"%@", [[element firstChild] content].trim);
+        
+        for (TFHppleElement *element in tutorialsNodes) { // All threads
+            NSLog(@"Thread: %@", [[element text] trim ]); // User A with user B
+            NSArray *messagesArray = [element childrenWithClassName:@"message"]; // all meta information between two user
+            NSArray *messagesText  = [element childrenWithTagName:@"p"]; // all messages between two users
+            
+            [messagesArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                TFHppleElement *header = [obj firstChildWithClassName:@"message_header"];
+                NSLog(@"User: %@ says at %@", [[header firstChildWithClassName:@"user"] text], [[header firstChildWithClassName:@"meta"] text]);
+                NSLog(@"-> %@", [messagesText[idx] text]);
+            }];
+            NSLog(@"\n");
         }
-        NSLog(@"elements: %lu", tutorialsNodes.count);
-        
-        
-        putchar('\n');
-        putchar('\n');
-        putchar('\n');
-        putchar('\n');
-        putchar('\n');
-
-        
-        file = [NSData dataWithContentsOfFile:@"/Users/chl/Desktop/test3.html"];
-        
-        NSLog(@"XPathQuery: %@", xPath);
-        
-        
-        NSLog(@"\n\n\nhpple\n\n\n");
-
-        tutorialsParser = [TFHpple hppleWithHTMLData:file];
-        tutorialsNodes = [tutorialsParser searchWithXPathQuery:xPath];
-        
-        for (TFHppleElement *element in tutorialsNodes) {
-            NSLog(@"%@", [[element firstChild] content].trim);
-        }
-        
-        
-        NSLog(@"\n\n\nOno\n\n\n");
-        
-        document = [ONOXMLDocument HTMLDocumentWithData:file error:&error];
-        
-        [document enumerateElementsWithXPath:xPath usingBlock:^(ONOXMLElement *element, NSUInteger idx, BOOL *stop) {
-            NSLog(@"\n%@", [element stringValue]);
-            b = [b stringByAppendingString:[element stringValue]];
-        }];
-        
-        if ([a isEqualToString:b])
-            NSLog(@"same");
-        else
-            NSLog(@"not same");
         
         
         
