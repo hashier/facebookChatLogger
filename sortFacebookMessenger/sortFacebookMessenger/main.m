@@ -33,14 +33,21 @@ int main(int argc, const char * argv[]) {
         
         
         for (TFHppleElement *element in tutorialsNodes) { // All threads
-            NSLog(@"Thread: %@", [[element text] trim ]); // User A with user B
+            NSLog(@"Thread: %@", [[element text] trim]); // User A with user B
             NSArray *messagesArray = [element childrenWithClassName:@"message"]; // all meta information between two user
             NSArray *messagesText  = [element childrenWithTagName:@"p"]; // all messages between two users
             
             [messagesArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 TFHppleElement *header = [obj firstChildWithClassName:@"message_header"];
-                NSLog(@"User: %@ says at %@", [[header firstChildWithClassName:@"user"] text], [[header firstChildWithClassName:@"meta"] text]);
-                NSLog(@"-> %@", [messagesText[idx] text]);
+                NSString *aUser = [[header firstChildWithClassName:@"user"] text];
+                NSString *aDateString = [[header firstChildWithClassName:@"meta"] text];
+                NSString *aMessage = [messagesText[idx] text];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"EEEE, MMMM d, yyyy 'at' h:mma 'UTC'Z"];
+                NSDate *aDate = [dateFormatter dateFromString:aDateString];
+                [dateFormatter setLocalizedDateFormatFromTemplate:@"yyMMddhhmm"];
+                NSLog(@"User: %@ says at %@", aUser, [dateFormatter stringFromDate:aDate]);
+                NSLog(@"-> %@", aMessage);
             }];
             NSLog(@"\n");
         }
