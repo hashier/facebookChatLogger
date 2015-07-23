@@ -22,6 +22,11 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSString *xPath = @"//div[@class='thread']";
         NSData *file;
+        NSDateFormatter *dateFormatterRead = [[NSDateFormatter alloc] init];
+        NSDateFormatter *dateFormatterWrite = [[NSDateFormatter alloc] init];
+
+        [dateFormatterRead setDateFormat:@"EEEE, MMMM d, yyyy 'at' h:mma 'UTC'Z"];
+        [dateFormatterWrite setLocalizedDateFormatFromTemplate:@"yyMMddhhmm"];
         
         file = [NSData dataWithContentsOfFile:@"/Users/chl/Downloads/facebook-christopherloessl/html/messages.htm"];
 //        file = [NSData dataWithContentsOfFile:@"/Users/chl/Desktop/test.html"];
@@ -48,10 +53,7 @@ int main(int argc, const char * argv[]) {
                 NSString *aUser = [[header firstChildWithClassName:@"user"] text];
                 NSString *aDateString = [[header firstChildWithClassName:@"meta"] text];
                 NSString *aMessage = [messagesText[idx] text] ?: @"";
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setDateFormat:@"EEEE, MMMM d, yyyy 'at' h:mma 'UTC'Z"];
-                NSDate *aDate = [dateFormatter dateFromString:aDateString];
-                [dateFormatter setLocalizedDateFormatFromTemplate:@"yyMMddhhmm"];
+                NSDate *aDate = [dateFormatterRead dateFromString:aDateString];
 //                NSLog(@"User: %@ says at %@", aUser, [dateFormatter stringFromDate:aDate]);
 //                NSLog(@"-> %@", aMessage);
                 Message *theMessage = [[Message alloc] initWithSender:aUser date:aDate andMessage:aMessage];
