@@ -14,6 +14,7 @@
 {
     if (!sender || !date || !message) {
         NSLog(@"All ivars must be set to init obj");
+
         return nil;
     }
     
@@ -23,7 +24,15 @@
         _date = date;
         _message = message;
     }
+
     return self;
+}
+
+- (NSString *)description
+{
+    NSString *description = [NSMutableString stringWithFormat:@"%@ on %@: %@", self.sender, self.date, self.message];
+
+    return description;
 }
 
 @end

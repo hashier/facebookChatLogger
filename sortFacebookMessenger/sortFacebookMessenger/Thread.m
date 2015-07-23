@@ -10,14 +10,28 @@
 
 @implementation Thread
 
-- (id)initWithMessages:(NSArray *)messages
+- (NSString *)description
 {
-    self = [self init];
-    if (self) {
-        _messages = messages;
-    }
-    
-    return self;
+    NSString *description = [NSMutableString stringWithFormat:@"%@", self.messages];
+
+    return description;
+}
+
+#pragma mark - Getter / Setter
+
+- (bool)groupChat
+{
+    return false;
+}
+
+- (NSString *)participantA
+{
+    return nil;
+}
+
+- (NSString *)participantB
+{
+    return nil;
 }
 
 @end

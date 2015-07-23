@@ -10,8 +10,10 @@
 
 @interface Thread : NSObject
 
-@property NSString *participantA;
-@property NSString *participantB;
+@property NSString *participants;
+@property (readonly) NSString *participantA;
+@property (readonly) NSString *participantB;
+@property (readonly) bool groupChat;
 @property NSArray *messages;
 
 @end
